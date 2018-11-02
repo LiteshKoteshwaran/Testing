@@ -1,0 +1,54 @@
+Select * 
+from P_Basic_info PB
+join P_Detail_info PD on PB.P_id= PD.P_id
+											--displays all the coloumns in the table P_Details_info and P_Basic_info 
+
+ Select * 
+from P_Basic_info PB
+join P_Detail_info PD on PB.P_id= PD.P_id----displays all the coloumns in the table P_Details_info and P_Basic_info
+where PB.P_age>22---by this condition it displays only the Patient above the age 22
+
+Select * 
+from P_Basic_info PB
+join P_Detail_info PD on PB.P_id= PD.P_id
+order by PB.P_name ----orders by the Alphabetic
+
+select *
+from Doctor D
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
+
+select D.D_Specialization
+from Doctor D
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
+wHere D.D_Specialization ='ENT'
+
+Select *
+from Result r 
+join Doctor D on r.D_name=d.D_name----joins the results and Doctor
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
+
+
+
+Select r.P_name,r.D_name,r.P_Result
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
+where r.P_Result='cured'----displays only the patients who have been cured
+
+Select Pb.P_age
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
+group by PB.P_age having Pb.P_age>23 ---displays only the patient who is above 23 years 
+
+
+Select r.P_name,r.D_name,r.P_Result
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id----Joins the Doctor and P_Basic_info
