@@ -1,0 +1,174 @@
+
+----CREATING TABLES AND DOING FEW OPERATIONS USING QUERIES 
+
+create table Sat (
+		start_time time primary key not null ,End_time time not null, assignment char(20)not null, result char(10)
+		constraint task Unique(result))
+		---constrains can be given while writing the col. name or at the end by giving key word "constraint"
+		---PK_start_time is a primary key which cannot have repetaions and cant have NULL 
+		---result is a Unique key which cannot have repetaions and can have NULL
+
+	insert into Sat values('09:00:00','06:00:00','joins','completed');
+	insert into Sat values('09:00:01','06:00:01','joins','not yet');;
+	insert into Sat values('09:00:04','06:00:04','joins','no going');
+	insert into Sat values('09:00:07','06:00:07','joins',null);
+	insert into Sat values('09:00:08','06:00:08','joins','almost');
+
+	select * from Sat
+
+
+create table Assignment(
+		Emp_Id smallint primary key , ----id is primary key 
+		Emp_Name char(10) unique, ---name is unique
+		start_time time not null 
+		,End_time time not null, 
+		assignment char(20)not null, 
+		result char(10) default 'completed' --- as default i want result value as completed, if not he/she can change it 
+		)
+
+
+	insert into Assignment values(096,'Litesh','09:00:00','06:00:00','joins','completed');
+	insert into Assignment values(097,'Akshaya','09:00:01','06:00:01','joins','not yet');;
+	insert into Assignment values(098,'Bhargav','09:00:04','06:00:04','joins','no going');
+	insert into Assignment values(099,'Shubam','09:00:07','06:00:07','joins',null);
+	insert into Assignment values(100,'shashank','09:00:08','06:00:08','joins','almost');
+
+	-----creating for outer joins
+	insert into Assignment values(101,'Lit','09:00:00','06:00:00','joins','completed');
+	insert into Assignment values(102,'Aks','09:00:01','06:00:01','joins','not yet');;
+	insert into Assignment values(103,'Bha','09:00:04','06:00:04','joins','no going');
+	insert into Assignment values(104,'Shu','09:00:07','06:00:07','joins',null);
+	insert into Assignment values(105,'sha','09:00:08','06:00:08','joins','almost');
+
+
+
+	select * from Assignment
+
+	select * from Second_Assignment
+
+
+create table Second_Assignment(
+		Emp_Id smallint , 
+		Emp_Name char(10) unique, ---name is unique
+		start_time time not null 
+		,End_time time not null, 
+		assignment char(20)not null, 
+		Pervious_result char(10) ,
+		result char(10) 
+		constraint FK_Emp_id foreign key(Emp_id) references Assignment(Emp_id)
+		-- //syntax foreign key <target> references <source>
+		)
+
+	insert into Second_Assignment values(096,'Litesh','09:00:00','06:00:00','Relations','completed','not yet');
+	insert into Second_Assignment values(097,'Akshaya','09:00:00','06:00:01','connections','not yet','completed');
+	insert into Second_Assignment values(098,'Bhargav','09:00:00','06:00:04','joins','no going','completed');
+	insert into Second_Assignment values(099,'Shubam','09:00:00','06:00:07','REG_EXP','null','completed');
+	insert into Second_Assignment values(100,'shashank','09:00:00','06:00:08','convention','almost','not yet');
+
+	-----creating for outer joins
+	insert into Second_Assignment values(101,'Lit','09:00:00','06:00:00','Relations','completed','not yet');
+	insert into Second_Assignment values(null,'Aks','09:00:00','06:00:01','connections','not yet','completed');
+	insert into Second_Assignment values(102,'Bha','09:00:00','06:00:04','joins','no going','completed');
+	insert into Second_Assignment values(null,'Shu','09:00:00','06:00:07','REG_EXP','null','completed');
+	insert into Second_Assignment values(null,'sha','09:00:00','06:00:08','convention','almost','not yet');
+
+
+	----INNER JOIN
+	select sa.Emp_Id, sa.Emp_Name, a.Emp_Name from Second_Assignment SA
+	JOIN Assignment A ON SA.Emp_Id = A.Emp_Id ----displays all the cols of both the tables with the reference of PK and FK  
+
+	----OUTER JOIN
+		
+		--LEFT
+		select sa.Emp_Id, sa.Emp_Name, a.Emp_Name from Second_Assignment SA
+	left outer JOIN Assignment A ON SA.Emp_Id = A.Emp_Id 
+
+		--RIGHT
+		select a.Emp_Id, sa.Emp_Name, sa.Emp_Name from Second_Assignment SA
+	right outer JOIN Assignment A ON SA.Emp_Id = A.Emp_Id 
+
+	----FULL OUTER JOINS
+	select sa.Emp_Id, sa.Emp_Name, a.Emp_Name from Second_Assignment SA
+	full outer JOIN Assignment A ON SA.Emp_Id = A.Emp_Id 
+
+	 
+
+select * from Second_Assignment SA
+join Assignment A on SA.Emp_Id= A.Emp_Id
+where SA.Pervious_result='compeleted' and SA.result='completed'
+
+select sa.Emp_Name,max(SA.End_time) from Second_Assignment SA
+join Assignment A on SA.Emp_Id= A.Emp_Id
+
+
+------STRING FUNCTION
+	
+	--ASCII
+		SELECT ASCII('A') AS A, ASCII('B') AS B,---RETURNS intger equvalent ASCII values     
+		ASCII('a') AS a, ASCII('b') AS b,
+		ASCII(1) AS [1], ASCII(2) AS [2];
+
+	--char
+	select char(14)--converts a int into a char ASCII value
+
+	--charindex
+	SELECT CHARINDEX('is', 'This is a string', 4);  --gives the 4th character pos.
+	SELECT CHARINDEX('is', 'This is a string')--in this "is" is present in the word "this" so returns 3
+
+	--concat
+	select concat ( 'My ', 'Dob ', ' is' , '  20', '/' , '12' , '/' , '1996' ) as dob; 
+ 
+
+----MATH FUNCTION
+
+	--square, pi, sqrt
+	select pi()*SQUARE(5)
+	select sqrt(square(25)-25)
+
+	--trignometry: sin, cos, tan, cot
+	select sin(pi()) sin180 ,cos(pi()) cos180,tan(pi()) tan180, cot(pi()) cot180
+	select sin(pi()/2) sin90 ,cos(pi()/2) cos90,tan(pi()/2) tan90, cot(pi()/2) cot90
+	select sin(pi()/3) sin60 ,cos(pi()/3) cos60,tan(pi()/3) tan60, cot(pi()/3) cot60
+	select sin(pi()/4) sin45 ,cos(pi()/4) cos45,tan(pi()/4) tan45, cot(pi()/4) cot45
+	select sin(pi()/6) sin30 ,cos(pi()/6) cos30,tan(pi()/6) tan30, cot(pi()/6) cot30
+
+	--Logarithms exp, log, log10
+	select exp(log(30)) [exp(log(30))], log(exp(30)) [log(exp(30))]
+	select log10(2) log2, log10(3) log3, log10(20) log20, log10(100) log100
+
+
+
+		--getdate
+	select GETDATE() today
+
+	--date parts
+	select DATENAME(dd, GETDATE()) [date]
+	select DATEPART(mm, getdate()) [month]
+	select day(getdate()) [day]
+
+	select top 2 month(HireDate ) [month] from HumanResources.Employee
+	
+
+	--current time stamp
+	SELECT CURRENT_TIMESTAMP
+
+	-- time diff
+	select  top 2 DATEDIFF(day, HireDate, GETDATE()) from HumanResources.Employee 
+	 
+
+
+
+	declare @i int---"@" is used to assign the value later, 'int' declaring the datatype
+set @i =78787
+select 
+[year]  = @i / 365,
+[month] = (@i % 365) / 30,
+[days]   = (@i % 365) % 30
+
+----time 
+declare @time int
+set @time =1000
+select 
+[hours]  = @time / 60,
+[min] = (@time % 60) / 60,
+[sec]   = (@time % 60) % 60
