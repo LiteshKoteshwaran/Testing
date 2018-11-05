@@ -1,0 +1,132 @@
+Select r.P_name,r.D_name,r.P_Result
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor
+---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id
+----Joins the Doctor and P_Basic_info
+where r.P_Result='cured'
+----displays only the patients who have been cured
+
+Select Pb.P_age
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor
+---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id
+----Joins the Doctor and P_Basic_info
+group by PB.P_age having Pb.P_age>23
+ ---displays only the patient who is above 23 years 
+
+
+Select r.P_name,r.D_name,r.P_Result
+from Result r 
+join Doctor D on r.D_name=d.D_name
+Join P_Detail_info PD on D.D_name = PD.P_Doctor
+---Joins the Doctor and P_Detail_info 
+join P_Basic_info pB on PD.P_id=PB.P_id
+----Joins the Doctor and P_Basic_info
+
+
+create table Sat (
+		start_time time primary key not null ,End_time time not null, assignment char(20)not null, result char(10)
+		constraint task Unique(result))
+		---constrains can be given while writing the col. name or at the end by giving key word "constraint"
+		---PK_start_time is a primary key which cannot have repetaions and cant have NULL 
+		---result is a Unique key which cannot have repetaions and can have NULL
+
+	insert into Sat values('09:00:00','06:00:00','joins','completed');
+	insert into Sat values('09:00:01','06:00:01','joins','not yet');;
+	insert into Sat values('09:00:04','06:00:04','joins','no going');
+	insert into Sat values('09:00:07','06:00:07','joins',null);
+	insert into Sat values('09:00:08','06:00:08','joins','almost');
+
+	select * from Sat
+
+
+
+--CONCAT
+
+select CONCAT(Title, '.', FirstName, MiddleName, LastName ) FullName from Person.Person
+
+
+
+--CHAR
+
+select CHAR(85)
+
+select CHAR(120)
+
+select CHAR(175)
+
+
+
+--CHARINDEX
+
+select FirstName, CHARINDEX('Sa',FirstName) ci from Person.Person
+
+where FirstName like 'S%'
+
+
+
+--LEFT
+
+select FirstName, LEFT(FirstName,3) from Person.Person
+
+where FirstName like 'B%'
+
+
+
+--Right
+
+select FirstName, Right(FirstName,3) from Person.Person
+
+where FirstName like '%o'
+
+
+
+--Replace
+
+select FirstName, Replace(FirstName,'V','B') from Person.Person
+
+where FirstName like 'V%'
+
+
+
+--Reverse
+
+select FirstName, Reverse(FirstName) from Person.Person
+
+where FirstName like 'J%'
+
+
+
+--trim, rtrim, ltrim
+
+select trim('   Hello World   ')
+
+select rtrim('   Hello World   ')
+
+select ltrim('   Hello World   ')
+
+
+
+--lower, upper
+
+select top 12 concat(upper(FirstName), lower(LastName)) FullName from Person.Person
+
+
+
+--ascii
+
+select top 12 MiddleName, ascii(MiddleName)AsciiValue from Person.Person
+
+where MiddleName is Not NULL 
+
+
+
+--substring, len
+
+select top 12 FirstName, substring(FirstName,2,3) from Person.Person
+
+where len(FirstName) > 5
