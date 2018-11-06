@@ -1,0 +1,154 @@
+create table test_values( id numeric(10), name nvarchar(10 ))
+
+INSERT into test_values values (09,'litesh')
+INSERT into test_values values (10,'shubu')
+INSERT into test_values values (11,'ak') 
+
+select * from test_values
+
+update test_values 
+set name = 'shubham'
+where id=2
+
+ALTER TABLE test_values
+ADD PRIMARY KEY(id);
+
+alter PROCEDURE InsertValue
+@id int,
+@name varchar(10)
+as
+begin
+insert into test_values values(@id,@name)
+select SCOPE_IDENTITY()
+end
+go
+
+exec InsertValue 1,'litesh'
+
+select * from test_values
+
+update test_values
+set id=1
+where name='litesh'
+
+exec InsertValue 5,'kiran' output
+SELECT SCOPE_IDENTITY()
+
+delete from test_values where id =5
+
+SELECT IDENT_CURRENT(id)
+from test_values
+
+select SCOPE_IDENTITY()
+from test_values
+SELECT SCOPE_IDENTITY()
+SELECT @@IDENTITY AS [@@IDENTITY];  
+GO 
+exec InsertValue 6,'amit'
+select IDENT_CURRENT(id)
+from test_values 
+
+
+create procedure InsertInto 
+ as 
+begin 
+insert into test_values values (@id, @name)
+end
+go
+
+exec InsertInto 4, 'litesh'
+
+
+)
+alter procedure InsertStudent @name nvarchar(250) as
+  begin
+   insert into Student values (@name)
+   select SCOPE_IDENTITY()
+end 
+go 
+
+create table pro(
+Emp_id smallint Identity(1,1) primary key, Emp_name char(10) unique )
+
+
+
+alter procedure prooo  @emp_name char as
+begin
+insert into pro values(@emp_name)
+select SCOPE_IDENTITY() as no_of_elements
+end
+go
+select * from pro
+exec prooo 'haha'
+
+
+
+create table Employee(
+Emp_id smallint Identity(1,1) primary key, Emp_name char(10) unique
+
+alter procedure Emp_procedure  @emp_name char as
+begin
+insert into Employee values(@emp_name)
+select SCOPE_IDENTITY() as no_of_elements
+end
+go
+
+
+exec Emp_procedure 'too'
+
+select * from Employee
+
+USE AdventureWorks2016CTP3;  
+GO  
+IF   
+(SELECT COUNT(*) FROM Production.Product WHERE Name LIKE 'Touring-3000%' ) > 5  
+PRINT 'There are more than 5 Touring-3000 bicycles.'  
+ELSE PRINT 'There are 5 or less Touring-3000 bicycles.' ;  
+GO 
+
+
+if 1=1 print 'true'
+else print 'false'
+
+
+if 
+(select count(*) from Employee where Emp_id=4 )>5
+print 'true'
+else print 'false'
+
+
+select * from second_Assignment
+
+
+if 
+(select Emp_name from second_Assignment where Emp_name='lit')='lit'
+print 'true'
+else print 'false'
+
+
+ 
+GO  
+WHILE (SELECT AVG(ListPrice) FROM Production.Product) < $1
+BEGIN  
+   UPDATE Production.Product  
+      SET ListPrice = ListPrice * 2  
+   SELECT MAX(ListPrice) FROM Production.Product  
+   IF (SELECT MAX(ListPrice) FROM Production.Product) > $100 
+      BREAK  
+   ELSE  
+      CONTINUE  
+END  
+PRINT 'Too much for the market to bear'; 
+
+select * from test_values
+
+while(select count(*) from test_values id)<8
+begin
+update test_values 
+set  [name]  = [name]+'NEW'
+select max(id) from test_values
+if (select max(id) from test_values)>5
+break
+else
+continue
+end
