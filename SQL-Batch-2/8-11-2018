@@ -1,0 +1,122 @@
+--revision of all topics done till now 
+
+
+ create table Person ([Nos.] smallint identity primary key,
+					  P_name char(10), 
+					  P_age smallint default 18 null, 
+					  P_work_place char(10), 
+					  P_home_address char(10)
+		   constraint UK_P_name unique(P_name),
+		              check(p_age>=18) )
+
+insert into Person values('Litesh',22,'acuvate','magadiroad')
+insert into Person values('Shubam',23,'acuvate','whitefeild')
+insert into Person values('Akshaya',18,'acuvate','sedam')
+insert into Person values('Bhabani',21,'acuvate','orisa')
+insert into Person values('Bhargav',19,'acuvate','hyderabad')
+
+
+drop table Sat
+
+TRUNCATE TABLE test_values----deletes all the data in the that table
+
+--The ALTER TABLE statement is used to add, delete, or modify columns in an existing table, also used to add and drop various constraints.
+
+alter table Person
+add Year_of_Joining date--adding one more column
+
+alter table Person
+alter column Year_of_Joining date--changing the data type 
+
+select * from Person
+
+update Person set Year_of_Joining ='2018-11-10' where [Nos.]=3
+update Person set Year_of_Joining ='2018-11-11' where [Nos.]=6
+update Person set Year_of_Joining ='2018-11-12' where [Nos.]=7
+update Person set Year_of_Joining ='2018-11-13' where [Nos.]=4
+update Person set Year_of_Joining ='2018-11-15' where [Nos.]=5
+
+select * from Assignment
+
+alter table Assignment
+add nos smallint identity 
+
+ALTER TABLE Assignment DROP constraint primary 
+
+ALTER TABLE Assignment
+alter COLUMN nos primary;
+
+alter table Assignment 
+add constraint FK_nos 
+
+alter PROCEDURE InsertValue
+@id int,
+@name varchar(10)
+as
+begin
+insert into test_values values(@id,@name)
+select SCOPE_IDENTITY()
+end
+go
+
+exec InsertValue 1,'litesh'
+
+select * from test_values
+
+update test_values
+set id=1
+where name='litesh'
+
+exec InsertValue 5,'kiran' output
+SELECT SCOPE_IDENTITY()
+
+delete from test_values where id =5
+
+SELECT IDENT_CURRENT(id)
+from test_values
+
+select SCOPE_IDENTITY()
+from test_values
+SELECT SCOPE_IDENTITY()
+SELECT @@IDENTITY AS [@@IDENTITY];  
+GO 
+exec InsertValue 6,'amit'
+select IDENT_CURRENT(id)
+from test_values 
+
+while (Select P_age from Person where P_age=21)<6
+begin
+--if(select P_age from Person where P_age=21)=21
+update Person set P_age+=1
+--else 
+--print 'he is above 18 ' 
+end
+
+select * from Person
+
+create procedure pro1 
+as
+begin
+update Person
+set P_age+=1
+end 
+ 
+ exec pro1
+
+ 
+--alter procedure incre as
+--begin 
+--update Person 
+--set max(P_age) = 1
+--end 
+
+ --exec incre
+ alter procedure insert1 @P_name char(10) output , @p_age smallint, @id smallint as
+ begin
+ update Person
+ set P_age=@p_age, P_name=@P_name where nos=@id
+ end
+
+ declare @P_name char(10), @p_age smallint, @id smallint=6
+ exec insert1 'su',22,@P_name output
+ select @P_name
