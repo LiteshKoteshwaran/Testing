@@ -1,0 +1,113 @@
+create table TableOne(
+StudentName char(10),
+StudentId smallint,
+CourseID smallint,
+CourseName char(10))
+
+insert into TableOne values('Litesh',096,01,'Java')
+insert into TableOne values('Kiran',097,02,'C#')
+insert into TableOne values('Shhubam',098,01,'Java')
+insert into TableOne values('Shashank',099,02,'C#')
+insert into TableOne values('Amit',100,03,'C++')
+insert into TableOne values('Akshaya',101,03,'C++')
+insert into TableOne values('Amit',100,03,'OOPs')
+insert into TableOne values('Akshaya',101,03,'OOPs')
+
+
+
+create table Table2(
+CourseID smallint,
+CourseName char(10))
+
+insert into Table2 values(1,'java')
+insert into Table2 values(2,'C#')
+insert into Table2 values(3,'C++')
+insert into Table2 values(5,'OOPs')
+insert into Table2 values(5,'OOPs')
+
+select CourseName, count(*) from TableOne group by CourseName   
+
+select StudentName, count(*) from TableOne right outer join group by CourseName   
+ 
+
+ select StudentId, count(*) from TableOne where CourseName='Java'
+
+ select CourseName, count(*) from TableOne group by CourseName
+
+
+
+
+ create table Employee123(
+ EmpId smallint primary key,
+ EmpName char(10),
+ Salary smallint,
+ EmpMangerId smallint,
+ DeptId smallint ,
+ DeptName Char(10)
+ )
+
+
+ insert into Employee123 values(1,'Litesh',10000,5,3,'DotNe') 
+ insert into Employee123 values(2,'Akshaya',1000,5,3,'Tester') 
+insert into Employee123 values(3,'shubam',15000,4,2,'developer') 
+insert into Employee123 values(4,'Kiran',16000,3,1,'DotNetArch') 
+insert into Employee123 values(5,'Shashank',12000,2,1,'DotTester') 
+insert into Employee123 values(6,'Amit',20000,1,3,'Engineer') 
+insert into Employee123 values(7,'Bhargav',30000,1,2,'DotNet') 
+insert into Employee123 values(8,'Bhargav',30000,1,2,'DotNet')
+
+select * from Employee123
+
+
+create table Department(DeptName char(10),DeptID smallint)
+
+insert into Department values('testing',1)
+insert into Department values('Engineer',2)
+insert into Department values('Develpment',3)
+
+select EmpName, EmpMangerId from Employee123
+select * from Employee123 E1 join Employee123 E2 on E1.EmpId = E2.EmpMangerId
+
+
+Select d.DeptName,count(*) from Employee123 e right outer join Department d on d.DeptID=e.DeptId group by d.DeptName 
+ 
+ select Salary ,count(*)from Employee123 group by Salary
+ 
+
+ alter procedure ProName @i int, @j char(10) output
+ as 
+ begin 
+ insert into Department values(@j,@i)
+ set @j='qqq'
+ end 
+
+ declare  @i int , @j char(10)
+ exec ProName 4,@j output  
+ select @j
+
+
+ create procedure pro1 
+as
+begin
+update Employee123
+set Salary+=111
+end 
+ 
+ exec pro1
+
+ 
+--alter procedure incre as
+--begin 
+--update Person 
+--set max(P_age) = 1
+--end 
+
+ create procedure insert1 @Ename char(10) output , @Eid smallint, @Did smallint as
+ begin
+ update Employee123
+ set EmpName=@Ename, EmpId=@Eid where DeptId = @Did
+ end
+
+ declare @Ename char(10), @Eid smallint, @Did smallint=6
+ exec insert1 'su',22,@Ename output
+ select @Ename
